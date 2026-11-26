@@ -17,5 +17,5 @@ def record():
     return render_template("record.html")
 
 
-if __name__ == "__main__":
-    app.run()
+if __name__ == "__main__":  # pragma: no cover
+    app.run(host="0.0.0.0", port=5000)

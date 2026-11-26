@@ -1,5 +1,5 @@
 #Python img 
-FROM python:3.15.2
+FROM python:3.12
 
 WORKDIR /app
 
@@ -20,4 +20,4 @@ COPY . .
 ENV PYTHONUNBUFFERED=1
 ENV PYTHONDONTWRITEBYTECODE=1
 
-CMD [ "python", "-m", "main.py"]
+CMD [ "python", "main.py"]

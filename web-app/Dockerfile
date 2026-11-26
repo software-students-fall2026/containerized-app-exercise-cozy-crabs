@@ -1,5 +1,5 @@
 #Python img 
-FROM python:3.15.2
+FROM python:3.12
 
 WORKDIR /app
 
@@ -21,4 +21,4 @@ ENV PYTHONDONTWRITEBYTECODE=1
 
 EXPOSE 5000
 
-CMD [ "", "--bind", "0.0.0.0:5000", "app:app" ]
+CMD [ "python", "app.py" ]
