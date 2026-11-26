@@ -11,7 +11,9 @@ from pymongo import MongoClient
 COLLECTION = "recordings"
 
 
-@lru_cache(maxsize=1)  # Prevents the application from creating new clients when requesting the same URI
+@lru_cache(
+    maxsize=1
+)  # Prevents the application from creating new clients when requesting the same URI
 def get_client(uri):
     """Create the MongoDB client once and reuse it"""
     return MongoClient(uri)
@@ -30,7 +32,9 @@ def _serialize(doc):
     return doc
 
 
-def insert_recording(audio_path, mode="free"):  # "free" is a placeholder, can be replaced at any time once options are specified
+def insert_recording(
+    audio_path, mode="free"
+):  # "free" is a placeholder, can be replaced at any time once options are specified
     """Insert a new pending recording and return its id as a string"""
     doc = {
         "created_at": datetime.now(timezone.utc),

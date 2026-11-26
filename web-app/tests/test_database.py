@@ -17,7 +17,7 @@ def test_insert_recording_creates_pending_doc(test_db):
     assert doc["audio_path"] == "/data/audio/a.webm"
 
 
-def test_get_recording_returns_string_id(test_db):
+def test_get_recording_returns_string_id():
     """The returned id is a string, not an ObjectId"""
     recording_id = database.insert_recording("/data/audio/a.webm")
 
@@ -27,7 +27,7 @@ def test_get_recording_returns_string_id(test_db):
     assert doc["audio_path"] == "/data/audio/a.webm"
 
 
-def test_get_recording_missing_or_invalid(test_db):
+def test_get_recording_missing_or_invalid():
     """Unknown or malformed ids give None instead of crashing"""
     assert database.get_recording("not-an-id") is None
     assert database.get_recording("0" * 24) is None
@@ -39,10 +39,12 @@ def test_list_recordings_newest_first(test_db):
     now = datetime.now(timezone.utc)
 
     for minutes in (30, 10, 20):
-        test_db[database.COLLECTION].insert_one({
-            "created_at": now - timedelta(minutes=minutes),
-            "status": "done",
-        })
+        test_db[database.COLLECTION].insert_one(
+            {
+                "created_at": now - timedelta(minutes=minutes),
+                "status": "done",
+            }
+        )
 
     docs = database.list_recordings()
 

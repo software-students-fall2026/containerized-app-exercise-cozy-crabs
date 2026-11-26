@@ -15,14 +15,13 @@ TRANSCRIPTS = [
 
 
 def build_fake_recordings(count=20):
-    """Build fake finished recordings spread over the last two weeks. Uses random picks of integers within ranges to ensure variety"""
+    """Build fake finished recordings spread over the last two weeks"""
     now = datetime.now(timezone.utc)
     docs = []
     for i in range(count):
-        avg = random.randint(-45, -20)
         docs.append(
             {
-                "seeded": True,  # So we can directly see what entries are from the seeding vs. actual testing/data, and nothing real gets overwritten when re-running this program
+                "seeded": True,  # Only seeded entries are overwritten when re-running this program
                 "created_at": now - timedelta(days=random.randint(0, 14)),
                 "status": "done",
                 "audio_path": f"/data/audio/seed_{i}.webm",
