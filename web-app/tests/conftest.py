@@ -7,7 +7,7 @@ import database
 @pytest.fixture
 def test_db(monkeypatch):
     """Connect to a real MongoDB test database"""
-    uri = "mongodb://localhost:27017/voicepractice_web_test"
+    uri = "mongodb://localhost:27017/voiceproject_web_test"
 
     monkeypatch.setenv("MONGO_URI", uri)
     database.get_client.cache_clear()

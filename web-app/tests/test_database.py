@@ -7,9 +7,7 @@ import database
 
 def test_insert_recording_creates_pending_doc(test_db):
     """New recordings start as pending with the right fields"""
-    recording_id = database.insert_recording(
-        "/data/audio/a.webm"
-    )
+    recording_id = database.insert_recording("/data/audio/a.webm")
 
     doc = test_db[database.COLLECTION].find_one()
 
@@ -21,9 +19,7 @@ def test_insert_recording_creates_pending_doc(test_db):
 
 def test_get_recording_returns_string_id(test_db):
     """The returned id is a string, not an ObjectId"""
-    recording_id = database.insert_recording(
-        "/data/audio/a.webm"
-    )
+    recording_id = database.insert_recording("/data/audio/a.webm")
 
     doc = database.get_recording(recording_id)
 
@@ -63,4 +59,4 @@ def test_list_recordings_empty(test_db):
 
 def test_get_db_uses_mongo_uri(test_db):
     """get_db picks the database name from MONGO_URI"""
-    assert test_db.name == "voicepractice_web_test"
+    assert test_db.name == "voiceproject_web_test"
