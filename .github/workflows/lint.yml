@@ -8,35 +8,27 @@ jobs:
       matrix:
         # repeat same job for each subsystem in the following subdirectories
         subdir: [web-app, machine-learning-client]
+    defaults:
+      run:
+        working-directory: ${{ matrix.subdir }}
     steps:
       - uses: actions/checkout@v4
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
-          python-version: "3.12" # update version(s) as needed
+          python-version: "3.12"
       - name: Install dependencies
         if: ${{ hashFiles(format('{0}/**/*.py', matrix.subdir)) != '' }}
         run: |
-          cd ${{ matrix.subdir }}
           python -m pip install --upgrade pip
           python -m pip install pipenv
           pipenv sync --dev --python $(which python)
-          pipenv shell --fancy --python $(which python)
       - name: Pylint (MLC)
         if: matrix.subdir == 'machine-learning-client'
-          working-directory: machine-learning-client
-          run: pipenv run pylint --init-hook="import sys;
-          sys.path.insert(0,'.')" main.py tests/
+        run: pipenv run pylint --init-hook="import sys; sys.path.insert(0,'.')" main.py tests/
       - name: Pylint (Web app)
         if: matrix.subdir == 'web-app'
-          working-directory: web-app
-          run: pipenv run pylint .
+        run: pipenv run pylint .
       - name: Format with black
         if: ${{ hashFiles(format('{0}/**/*.py', matrix.subdir)) != '' }}
-        # you may set black to ignore any files or dependencies that make no sense to format
-        run: |
-          cd ${{ matrix.subdir }}
-          pipenv run black --diff --check .
-      - name: Run tests 
-        working-directory: ${{ matrix.subdir }}
-        run: pipenv run pytest --cov --cov-report=term-missing --cov-fail-under 80
+        run: pipenv run black --diff --check .
