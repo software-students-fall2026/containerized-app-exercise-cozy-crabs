@@ -20,7 +20,7 @@ def get_client(uri):
 def get_db():
     """Return the database named in MONGO_URI (defaults to local Mongo)"""
     uri = os.environ.get("MONGO_URI", "mongodb://localhost:27017/voiceproject")
-    return get_client(uri).get_default_database("voicepractice")
+    return get_client(uri).get_default_database("voiceproject")
 
 
 def _serialize(doc):
