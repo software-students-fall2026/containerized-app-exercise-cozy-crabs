@@ -4,7 +4,7 @@ import pytest
 import database
 
 
-@pytest.fixture
+@pytest.fixture(autouse=True)
 def test_db(monkeypatch):
     """Connect to a real MongoDB test database"""
     uri = "mongodb://localhost:27017/voiceproject_web_test"

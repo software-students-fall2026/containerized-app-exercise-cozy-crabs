@@ -54,7 +54,7 @@ def test_list_recordings_newest_first(test_db):
     assert len(database.list_recordings(limit=2)) == 2
 
 
-def test_list_recordings_empty(test_db):
+def test_list_recordings_empty():
     """An empty database gives an empty list"""
     assert database.list_recordings() == []
 
